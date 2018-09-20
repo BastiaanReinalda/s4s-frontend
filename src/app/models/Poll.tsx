@@ -1,20 +1,21 @@
 import * as m from 'mithril'
 
 export interface IPoll {
+    id?: number;
     linkString?: string;
     question?: string;
     answerOne?: string;
     answerTwo?: string;
     answerThree?: string;
-    answerOneScore?: Number;
-    answerTwoScore?: Number;
-    answerThreeScore?: Number;
+    answerOneScore?: number;
+    answerTwoScore?: number;
+    answerThreeScore?: number;
 }
 
 const PollModel = {
     current: {} as IPoll,
-    fetch(linkedString: string) {
-        m.request({
+    async fetch(linkedString?: string) {
+        return m.request({
             method: "GET",
             url: "http://localhost:3250/poll/" + linkedString,
             withCredentials: false
@@ -31,9 +32,19 @@ const PollModel = {
             data: poll,
             withCredentials: false
         }).then(result => {
-            console.log("the then result:")
-            console.log(result)
             PollModel.saved = result
+        });
+    },
+
+    updated: {} as IPoll,
+    patch(poll) {
+        return m.request<IPoll>( {
+            method: "PATCH",
+            url: "http://localhost:3250/poll",
+            data: poll,
+            withCredentials: false
+        }).then(result => {
+            PollModel.updated = result
         });
     }
 }

@@ -23,8 +23,6 @@ export class CreateForm implements m.Component {
 	}
 
 	savePoll = () => {
-		console.log("saving:")
-		console.log(this.poll)
 		PollModel.save(this.poll);
 	}
 
