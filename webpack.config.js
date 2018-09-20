@@ -1,32 +1,25 @@
+const webpack = require('webpack');
 const path = require('path');
 
-console.log("test");
 module.exports = {
-  entry: './src/js/index.ts',
-  output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
-  },
-  resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
-  },
-  module: {
-    rules: [
-        {
-              test: /\.tsx?$/,
-              use: 'ts-loader',
-              exclude: /node_modules/
-        },
-        {
-            test: /\.scss$/,
-            use: [{
-                loader: "style-loader" // creates style nodes from JS strings
-            },{
-                loader: "css-loader" // translates CSS into CommonJS
-            }, {
-                loader: "sass-loader" // compiles Sass to CSS
+    entry: ['./src/app/app.tsx'],
+    output: {
+        path: path.resolve(__dirname, './dist'),
+        filename: 'app.bundle.js'
+    },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
+    },
+    module: {
+        rules: [
+            { test: /\.tsx?$/, loader: 'ts-loader' },
+            {
+                test: /\.(s*)css$/,
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }
-            ]
-    }]
+        ],
+    },
+    node: {
+        fs: 'empty'
+    }
 }
-};
