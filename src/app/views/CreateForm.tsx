@@ -1,13 +1,10 @@
 import * as m from 'mithril'
-import { IPoll, PollModel } from '../models/Poll'
+import PollModel, { IPoll } from '../models/Poll'
 
 export class CreateForm implements m.Component {
-	private poll: IPoll = { "question": "", "answerOne": "", "answerTwo": "", "answerThree": "" };
-	private pollModel: PollModel;
+	private poll: IPoll = {};
 
-	constructor() { 
-		this.pollModel = new PollModel;
-	}
+	constructor() { }
 
 	addQuestion = (eventQuestion) => {
 		this.poll.question = eventQuestion.target.value;
@@ -26,8 +23,9 @@ export class CreateForm implements m.Component {
 	}
 
 	savePoll = () => {
-		console.log(this.poll);
-		this.pollModel.save(this.poll);
+		console.log("saving:")
+		console.log(this.poll)
+		PollModel.save(this.poll);
 	}
 
 	view() {
@@ -62,8 +60,9 @@ export class CreateForm implements m.Component {
 									Create
 							</button>
 							</div>
+							{this.poll != undefined}
 							<div className="form-group">
-								<a href={`/poll/${this.poll.linkString}`} className="link" oncreate={m.route.link}>Go to poll!</a>
+								<a href={`/poll/${PollModel.saved != undefined ? PollModel.saved.linkString : "/" }`} className="link" oncreate={m.route.link}>Go to poll!</a>
 							</div>
 						</form>
 					</div>

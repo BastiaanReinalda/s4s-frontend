@@ -1,40 +1,41 @@
 import * as m from 'mithril'
 
 export interface IPoll {
-    id?: number;
     linkString?: string;
     question?: string;
     answerOne?: string;
     answerTwo?: string;
     answerThree?: string;
+    answerOneScore?: Number;
+    answerTwoScore?: Number;
+    answerThreeScore?: Number;
 }
 
-export class PollModel {
-    private polls: IPoll[] = [];
-
-    constructor() {
-        
-    }
-
-    fetch() {
+const PollModel = {
+    current: {} as IPoll,
+    fetch(linkedString: string) {
         m.request({
             method: "GET",
-            url: "http://localhost:3250/poll",
+            url: "http://localhost:3250/poll/" + linkedString,
             withCredentials: false
-        }).then((result: any) => {
-            result
+        }).then(result=> {
+            PollModel.current = result
         });
-    }
-    
-    save(poll: IPoll) {
-        console.log(poll)
-         m.request<string>({
+    },
+
+    saved: {} as IPoll,
+    save(poll) {
+        return m.request<IPoll>( {
             method: "POST",
             url: "http://localhost:3250/poll",
             data: poll,
             withCredentials: false
-        }).then((result) => {
-            return result
+        }).then(result => {
+            console.log("the then result:")
+            console.log(result)
+            PollModel.saved = result
         });
     }
 }
+type PollModel = typeof PollModel
+export default PollModel
