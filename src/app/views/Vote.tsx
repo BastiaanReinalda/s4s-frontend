@@ -70,7 +70,7 @@ export class Vote implements m.Component {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{PollModel.current.answerOneScore != undefined ? PollModel.current.answerOneScore : ''}</th>
+                                    <td>{PollModel.current.answerOneScore != undefined ? PollModel.current.answerOneScore : ''}</td>
                                     <td>{PollModel.current.answerTwoScore != undefined ? PollModel.current.answerTwoScore : ''}</td>
                                     <td>{PollModel.current.answerThreeScore != undefined ? PollModel.current.answerThreeScore : ''}</td>
                                 </tr>
