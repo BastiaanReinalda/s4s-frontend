@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/BastiaanReinalda/s4s-frontend.svg?branch=master)](https://travis-ci.com/BastiaanReinalda/s4s-frontend)
+
 # [Mithril 1.1](https://mithril.js.org/) Simple App Tutorial
 
 Typescript version adapted from: https://mithril.js.org/simple-application.html
